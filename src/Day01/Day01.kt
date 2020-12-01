@@ -53,38 +53,23 @@ class Day01 {
         }
 
         fun solvePartTwo(values: IntArray, target: Int): Int {
-            val uniqueCombinations = generateAllOptions(values)
+            values.forEach { a ->
+                values.forEach b@{ b ->
 
-            uniqueCombinations.forEach {
-                val a = it.first
-                val b = it.second
-                val c = target - (a + b)
+                    if (a == b || a + b >= target) {
+                        return@b
+                    }
 
-                if (values.contains(c) && a + b + c == target) {
-                    return a * b * c
+                    val c = target - (a + b)
+
+                    if (values.contains(c)) {
+                        return a * b * c
+                    }
                 }
             }
 
             // Answer was not found
             return -1
-        }
-
-        private fun generateAllOptions(input: IntArray): Set<Pair<Int, Int>> {
-            val output = mutableSetOf<Pair<Int, Int>>()
-
-            input.forEach a@{ a ->
-                input.forEach b@{ b ->
-                    // Put the lower value on the left side
-                    if (a < b) {
-                        output.add(a to b)
-                    } else {
-                        output.add(b to a)
-                    }
-                }
-            }
-
-            // Convert to immutable set
-            return output.toSet()
         }
     }
 }
