@@ -3,8 +3,8 @@ import java.nio.file.Paths
 
 fun main() {
     val requestedNumber = 2020
-    val testNumbers = Day01.loadNumbers("./src/Day01.test")
-    val realNumbers = Day01.loadNumbers("./src/Day01.input")
+    val testNumbers = Day01.loadNumbers("./src/Day01/Day01.test")
+    val realNumbers = Day01.loadNumbers("./src/Day01/Day01.input")
 
     // 514579
     println("test part 1 - " + Day01.solvePartOne(testNumbers, requestedNumber))
