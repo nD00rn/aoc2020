@@ -62,16 +62,12 @@ data class PasswordAndRule(private val input: String) {
     val maxAmount: Int
 
     init {
-        val firstSplit = input.split(":", limit = 2)
-        password = firstSplit[1].trim()
-        val rule = firstSplit[0]
+        val (minMax, testCharacter, text) = input.split(" ")
+        val (min, max) = minMax.split("-")
 
-        val secondSplit = rule.split(" ", limit = 2)
-        val range = secondSplit[0]
-        testChar = secondSplit[1].chars().findFirst().asInt
-
-        val thirdSplit = range.split("-", limit = 2)
-        minAmount = thirdSplit[0].toInt()
-        maxAmount = thirdSplit[1].toInt()
+        password = text
+        testChar = testCharacter.chars().findFirst().asInt
+        minAmount = min.toInt()
+        maxAmount = max.toInt()
     }
 }
