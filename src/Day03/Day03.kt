@@ -1,5 +1,6 @@
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.stream.Stream
 
 fun main() {
     val testMap = Day03.loadMap("./src/Day03/Day03.test")
@@ -29,59 +30,33 @@ class Day03 {
         fun solvePartOne(map: AocMap): Long = calculateTreesOnPath(map, 3 to 1)
 
         fun solvePartTwo(map: AocMap): Long {
-            val angles = listOf(
+            return listOf(
                 1 to 1,
                 3 to 1,
                 5 to 1,
                 7 to 1,
                 1 to 2
             )
-
-            return angles.stream()
+                .stream()
                 .mapToLong { angle -> calculateTreesOnPath(map, angle) }
                 .reduce(1) { a, b -> a * b }
         }
 
         private fun calculateTreesOnPath(map: AocMap, angle: Pair<Int, Int>): Long {
             var x = 0
-            var y = 0
-            var treesFound = 0
 
-            do {
-                x += angle.first
-                y += angle.second
-
-                val coordinate = map.getCoordinate(x, y)
-
-                if (coordinate == AocMap.Entries.Tree) {
-                    treesFound += 1
-                }
-
-            } while (coordinate != AocMap.Entries.Exit)
-
-            return treesFound.toLong()
+            return Stream.iterate(angle.second) { it + angle.second }
+                .limit(map.height / angle.second.toLong())
+                .peek { x += angle.first }
+                .filter { y -> map.isTree(x, y) }
+                .count()
         }
-
     }
 }
 
-data class AocMap(private val input: List<String>) {
-    fun getCoordinate(x: Int, y: Int): Entries {
-        // Check if outside of perimeter
-        if (y > input.size - 1) {
-            return Entries.Exit
-        }
+data class AocMap(val input: List<String>) {
+    val height = input.size
+    private val width = input.first().length
 
-        val line = input[y]
-
-        // Since the line is wrapping around you will need to get the specific
-        // index by performing a module operation.
-        return when (line[x % line.length]) {
-            '#' -> Entries.Tree
-            '.' -> Entries.Space
-            else -> Entries.Exit
-        }
-    }
-
-    enum class Entries { Tree, Space, Exit }
+    fun isTree(x: Int, y: Int): Boolean = y < height && input[y][x % width] == '#'
 }
