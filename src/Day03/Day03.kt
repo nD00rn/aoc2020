@@ -57,7 +57,7 @@ class Day03 {
                     treesFound += 1
                 }
 
-            } while (map.getCoordinate(x, y) != AocMap.Entries.Exit)
+            } while (coordinate != AocMap.Entries.Exit)
 
             return treesFound.toLong()
         }
