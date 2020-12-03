@@ -11,11 +11,11 @@ fun main() {
     // 205 trees
     println("Found ${Day03.solvePartOne(realMap)} trees for part 1 on real map")
 
-    // 336 trees (multiplied)
-    println("Found ${Day03.solvePartTwo(testMap)} trees for part 2 on test map")
+    // answer: 336 (multiplied)
+    println("Found ${Day03.solvePartTwo(testMap)} as the solution for part 2 on test map")
 
-    // 3952146825 trees (multiplied)
-    println("Found ${Day03.solvePartTwo(realMap)} trees for part 2 on real map")
+    // answer: 3952146825 (multiplied)
+    println("Found ${Day03.solvePartTwo(realMap)} as the solution for part 2 on real map")
 }
 
 class Day03 {
@@ -38,7 +38,7 @@ class Day03 {
             )
 
             return angles.stream()
-                .mapToLong { calculateTreesOnPath(map, it) }
+                .mapToLong { angle -> calculateTreesOnPath(map, angle) }
                 .reduce(1) { a, b -> a * b }
         }
 
