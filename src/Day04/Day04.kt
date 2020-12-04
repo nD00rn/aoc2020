@@ -45,14 +45,14 @@ class Day04 {
 
         fun solvePartOne(passports: List<Passport>): Int {
             return passports.stream()
-                .filter { it.isValidForPartOne() }
+                .filter(Passport::isValidForPartOne)
                 .count()
                 .toInt()
         }
 
         fun solvePartTwo(passports: List<Passport>): Int {
             return passports.stream()
-                .filter { it.isValidForPartTwo() }
+                .filter(Passport::isValidForPartTwo)
                 .count()
                 .toInt()
         }
