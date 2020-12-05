@@ -16,7 +16,6 @@ fun main() {
     println("My seat id is ${Day05.solvePartTwo(realInput)} for part two")
 }
 
-
 class Day05 {
     companion object {
 
@@ -33,10 +32,9 @@ class Day05 {
 
             return rawPasses.stream()
                 .map { generateBoardingPass(plane, it) }
-                .map { generateSeatId(it) }
-                .sorted(reverseOrder())
-                .findFirst()
-                .get()
+                .mapToInt { generateSeatId(it) }
+                .max()
+                .asInt
         }
 
         fun solvePartTwo(rawPasses: List<RawBoardingPass>): Int {
