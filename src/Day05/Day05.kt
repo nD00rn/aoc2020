@@ -47,29 +47,22 @@ class Day05 {
                 .collect(toList())
 
             val validRows = findAvailableRows(boardingPasses)
-            println("First valid row is ${validRows.first()}, last is ${validRows.last()}")
 
             val validTakenSeatIds = findValidSeatIds(validRows, boardingPasses)
 
-            println(validTakenSeatIds)
-
-            val gapsInSeatIds = findGapsInSeatIds(validTakenSeatIds)
-
-            println(gapsInSeatIds)
-
-            return -1
+            return findGapsInSeatIds(validTakenSeatIds)
         }
 
-        private fun findGapsInSeatIds(input: List<Int>): List<Int> {
-            val missingIds = mutableListOf<Int>()
+        private fun findGapsInSeatIds(seatIds: List<Int>): Int {
+            for (i in seatIds.first()..seatIds.last()) {
 
-            for (i in input.first()..input.last()) {
-                if (i + 1 in input && i - 1 in input && i !in input) {
-                    missingIds.add(i)
+                // Check right taken, check left taken, check self missing
+                if (i + 1 in seatIds && i - 1 in seatIds && i !in seatIds) {
+                    return i
                 }
             }
 
-            return missingIds.toList()
+            return -1
         }
 
         private fun findValidSeatIds(
