@@ -34,7 +34,7 @@ class Day05 {
             return rawPasses.stream()
                 .map { generateBoardingPass(plane, it) }
                 .map { generateSeatId(it) }
-                .sorted { a, b -> compareValues(b, a) }
+                .sorted(reverseOrder())
                 .findFirst()
                 .get()
         }
