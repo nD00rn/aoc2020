@@ -29,10 +29,7 @@ class Day05 {
         }
 
         fun solvePartOne(seatIds: List<Int>): Int {
-            return seatIds.stream()
-                .mapToInt { it }
-                .max()
-                .asInt
+            return seatIds.maxOrNull()!!
         }
 
         fun solvePartTwo(seatIds: List<Int>): Int {
