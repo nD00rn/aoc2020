@@ -6,9 +6,13 @@ fun main() {
     val testInput = Day05.readInput("./src/Day05/Day05.test")
     val realInput = Day05.readInput("./src/Day05/Day05.input")
 
+    // seat id: 820
     println("The highest seat id is ${Day05.solvePartOne(testInput)} using test data in part one")
+
+    // seat id: 848
     println("The highest seat id is ${Day05.solvePartOne(realInput)} using real data in part one")
 
+    // seat id: 682
     println("My seat id is ${Day05.solvePartTwo(realInput)} for part two")
 }
 
