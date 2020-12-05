@@ -104,7 +104,6 @@ class Day05 {
                     'R' -> colRange = (colRange.first + (colsAvailable / 2))..colRange.last
                 }
             }
-//            println("Generated boarding pass with rowRange $rowRange and colRange $colRange")
             return BoardingPass(rowRange.first, colRange.last)
         }
     }
