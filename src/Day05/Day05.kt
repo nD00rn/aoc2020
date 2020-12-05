@@ -19,28 +19,24 @@ fun main() {
 class Day05 {
     companion object {
 
-        fun readInput(path: String): List<BoardingPass> {
+        fun readInput(path: String): List<Int> {
             val lines = Files.readAllLines(Paths.get(path), Charsets.UTF_8)
 
             return lines.stream()
                 .map(::generateBoardingPass)
+                .map(::generateSeatId)
                 .collect(toList())
         }
 
-        fun solvePartOne(boardingPasses: List<BoardingPass>): Int {
-            return boardingPasses.stream()
-                .mapToInt(::generateSeatId)
+        fun solvePartOne(seatIds: List<Int>): Int {
+            return seatIds.stream()
+                .mapToInt { it }
                 .max()
                 .asInt
         }
 
-        fun solvePartTwo(boardingPasses: List<BoardingPass>): Int {
-            val seatIds = boardingPasses.stream()
-                .map(::generateSeatId)
-                .sorted()
-                .collect(toList())
-
-            return findGapsInSeatIds(seatIds)
+        fun solvePartTwo(seatIds: List<Int>): Int {
+            return findGapsInSeatIds(seatIds.sorted())
         }
 
         private fun findGapsInSeatIds(seatIds: List<Int>): Int {
