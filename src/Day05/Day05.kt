@@ -19,35 +19,28 @@ fun main() {
 class Day05 {
     companion object {
 
-        fun readInput(path: String): List<RawBoardingPass> {
+        fun readInput(path: String): List<BoardingPass> {
             val lines = Files.readAllLines(Paths.get(path), Charsets.UTF_8)
 
             return lines.stream()
-                .map { RawBoardingPass(it) }
+                .map(::generateBoardingPass)
                 .collect(toList())
         }
 
-        fun solvePartOne(rawPasses: List<RawBoardingPass>): Int {
-            val plane = generatePlane()
-
-            return rawPasses.stream()
-                .map { generateBoardingPass(plane, it) }
-                .mapToInt { generateSeatId(it) }
+        fun solvePartOne(boardingPasses: List<BoardingPass>): Int {
+            return boardingPasses.stream()
+                .mapToInt(::generateSeatId)
                 .max()
                 .asInt
         }
 
-        fun solvePartTwo(rawPasses: List<RawBoardingPass>): Int {
-            val plane = generatePlane()
-
-            val boardingPasses = rawPasses.stream()
-                .map { generateBoardingPass(plane, it) }
+        fun solvePartTwo(boardingPasses: List<BoardingPass>): Int {
+            val seatIds = boardingPasses.stream()
+                .map(::generateSeatId)
+                .sorted()
                 .collect(toList())
 
-            val validRows = findAvailableRows(boardingPasses)
-            val validTakenSeatIds = findValidSeatIds(validRows, boardingPasses)
-
-            return findGapsInSeatIds(validTakenSeatIds)
+            return findGapsInSeatIds(seatIds)
         }
 
         private fun findGapsInSeatIds(seatIds: List<Int>): Int {
@@ -57,34 +50,13 @@ class Day05 {
             return seatIds[seatIdIndexLeftOfMe] + 1
         }
 
-        private fun findValidSeatIds(
-            validRows: List<Int>,
-            boardingPasses: List<BoardingPass>
-        ): List<Int> {
-            return boardingPasses.stream()
-                .filter { validRows.contains(it.row) }
-                .map { generateSeatId(it) }
-                .sorted { a, b -> a.compareTo(b) }
-                .collect(toList())
-        }
-
-        private fun findAvailableRows(boardingPass: List<BoardingPass>): List<Int> {
-            return boardingPass.stream()
-                .map { it.row }
-                .distinct()
-                .sorted()
-                .collect(toList())
-        }
-
-        private fun generatePlane() = Plane(128, 8)
-
         private fun generateSeatId(boardingPass: BoardingPass): Int = boardingPass.row * 8 + boardingPass.column
 
-        private fun generateBoardingPass(plane: Plane, boardingPass: RawBoardingPass): BoardingPass {
-            var rowRange = 0 until plane.length
-            var colRange = 0 until plane.width
+        private fun generateBoardingPass(boardingPass: String): BoardingPass {
+            var rowRange = 0 until 128
+            var colRange = 0 until 8
 
-            boardingPass.rawInput.forEach {
+            boardingPass.forEach {
                 val rowsAvailable = rowRange.last - rowRange.first + 1
                 val colsAvailable = colRange.last - colRange.first + 1
 
@@ -101,6 +73,4 @@ class Day05 {
     }
 }
 
-data class Plane(val length: Int, val width: Int)
-data class RawBoardingPass(val rawInput: String)
 data class BoardingPass(val row: Int, val column: Int)
