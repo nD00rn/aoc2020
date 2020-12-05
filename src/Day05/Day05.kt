@@ -47,22 +47,16 @@ class Day05 {
                 .collect(toList())
 
             val validRows = findAvailableRows(boardingPasses)
-
             val validTakenSeatIds = findValidSeatIds(validRows, boardingPasses)
 
             return findGapsInSeatIds(validTakenSeatIds)
         }
 
         private fun findGapsInSeatIds(seatIds: List<Int>): Int {
-            for (i in seatIds.first()..seatIds.last()) {
+            val seatIdIndexLeftOfMe = (seatIds.indices)
+                .first { index -> seatIds[index] == seatIds[index + 1] - 2 }
 
-                // Check right taken, check left taken, check self missing
-                if (i + 1 in seatIds && i - 1 in seatIds && i !in seatIds) {
-                    return i
-                }
-            }
-
-            return -1
+            return seatIds[seatIdIndexLeftOfMe] + 1
         }
 
         private fun findValidSeatIds(
