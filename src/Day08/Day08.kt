@@ -12,7 +12,7 @@ fun main() {
     // 1586
     println("The global value using real data is ${Day08.solvePartOne(realCode)}")
 
-    //8
+    // 8
     println("The global value using test data for part two is ${Day08.solvePartTwo(testCode)}")
 
     // 703
@@ -107,7 +107,6 @@ class Day08 {
 
             } while (program.programCounter !in executedOperations)
 
-            println("Exit program counter is ${program.programCounter}")
             return program
         }
     }
