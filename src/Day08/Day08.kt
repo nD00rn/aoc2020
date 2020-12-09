@@ -122,9 +122,9 @@ data class Operation(val input: String) {
     val argument: Int
 
     init {
-        val split = input.split(" ", limit = 2)
-        execution = split[0].trim()
-        argument = split[1].toInt()
+        val (a, b) = input.split(" ")
+        execution = a
+        argument = b.toInt()
     }
 
     override fun toString(): String {
