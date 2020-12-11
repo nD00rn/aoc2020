@@ -33,7 +33,7 @@ class Day11 {
         fun solvePartOne(input: GameOfLifeMap): Int {
             return run(
                 input,
-                1,
+                viewRange = 1,
                 freeToOccupied = { it == 0 },
                 occupiedToFree = { it >= 4 }
             )
@@ -42,7 +42,7 @@ class Day11 {
         fun solvePartTwo(input: GameOfLifeMap): Int {
             return run(
                 input,
-                maxOf(input.width, input.height),
+                viewRange = maxOf(input.width, input.height),
                 freeToOccupied = { it == 0 },
                 occupiedToFree = { it >= 5 }
             )
