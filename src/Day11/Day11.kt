@@ -108,7 +108,7 @@ data class GameOfLifeMap(val input: List<String>) {
         return GameOfLifeMap(output)
     }
 
-    fun getCell(x: Int, y: Int): Char {
+    private fun getCell(x: Int, y: Int): Char {
         if (x !in 0 until width || y !in 0 until height) {
             return ' '
         }
