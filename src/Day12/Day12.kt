@@ -94,11 +94,15 @@ class Day12 {
 
         fun newDirectionPart2(wayPoint: Pair<Int, Int>, angle: Int): Pair<Int, Int> {
             var mutations = angle / 90
-            while (mutations < 0) mutations += 4
             mutations %= 4
 
+            while (mutations < 0) mutations += 4
+
+            // Raw translation  || translation to variables
             // east 10, north 4 || east 10, north 4
             // south 10, east 4 || east 4, north -10
+            // west 10, south 4 || east -10, north -4
+            // north 10, west 4 || east -4, north 10
 
             var output = wayPoint
             repeat(mutations) {
@@ -107,7 +111,7 @@ class Day12 {
             return output
         }
 
-        fun newDirection(currentDirection: Char, angle: Int): Char {
+        private fun newDirection(currentDirection: Char, angle: Int): Char {
             val direction = "NESW"
             val shiftPositions = angle / 90
             val currentIndex = direction.indexOf(currentDirection)
@@ -122,12 +126,6 @@ class Day12 {
 }
 
 data class Instruction(val input: String) {
-    val letter: Char
-    val number: Int
-
-    init {
-        val (a, b) = input.substring(0, 1) to input.substring(1, input.length)
-        this.letter = a.first()
-        this.number = b.toInt()
-    }
+    val letter: Char = input[0]
+    val number: Int = input.substring(1 until input.length).toInt()
 }
