@@ -107,5 +107,5 @@ class Day12 {
 
 data class Instruction(val input: String) {
     val letter: Char = input[0]
-    val number: Int = input.substring(1 until input.length).toInt()
+    val number: Int = input.substring(1).toInt()
 }
