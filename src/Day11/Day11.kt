@@ -136,7 +136,7 @@ data class GameOfLifeMap(val input: List<String>) {
     private fun findFirstCell(x: Int, y: Int, range: Int, action: (Int, Int) -> Pair<Int, Int>): Char {
         val (newX, newY) = action.invoke(x, y)
 
-        if (range - 1 == 0) {
+        if (range == 1) {
             return getCell(newX, newY)
         }
 
