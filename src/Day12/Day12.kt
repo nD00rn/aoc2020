@@ -30,69 +30,53 @@ class Day12 {
         }
 
         fun solvePartOne(input: List<Instruction>): Int {
-            var facing = 'E'
-            var coordinate = 0 to 0
+            // East to North
+            var facing = 1 to 0
 
-            input.forEach { instruction ->
-                val (x, y) = coordinate
-                val num = instruction.number
-                when (instruction.letter) {
-                    'N' -> coordinate = x to y + num
-                    'E' -> coordinate = x + num to y
-                    'W' -> coordinate = x - num to y
-                    'S' -> coordinate = x to y - num
-                    'F' -> coordinate = goForwardPart1(coordinate, num, facing)
-                    'L' -> facing = newDirection(facing, -1 * num)
-                    'R' -> facing = newDirection(facing, num)
-                }
-            }
-
-            return abs(coordinate.first) + abs(coordinate.second)
-        }
-
-        fun solvePartTwo(input: List<Instruction>): Int {
-            // east to north
-            var wayPoint = 10 to 1
+            // Start coordinates of the ship
             var ship = 0 to 0
 
             input.forEach { instruction ->
-                val (wayX, wayY) = wayPoint
                 val num = instruction.number
                 when (instruction.letter) {
-                    'N' -> wayPoint = wayX to wayY + num
-                    'E' -> wayPoint = wayX + num to wayY
-                    'W' -> wayPoint = wayX - num to wayY
-                    'S' -> wayPoint = wayX to wayY - num
-                    'F' -> ship = goForwardPart2(ship, wayPoint, num)
-                    'L' -> wayPoint = newDirectionPart2(wayPoint, -1 * num)
-                    'R' -> wayPoint = newDirectionPart2(wayPoint, num)
+                    'N' -> ship = mutateWayPoint(ship, 0 to 1, num)
+                    'E' -> ship = mutateWayPoint(ship, 1 to 0, num)
+                    'W' -> ship = mutateWayPoint(ship, -1 to 0, num)
+                    'S' -> ship = mutateWayPoint(ship, 0 to -1, num)
+                    'F' -> ship = mutateWayPoint(ship, facing, num)
+                    'L' -> facing = mutateDirection(facing, -1 * num)
+                    'R' -> facing = mutateDirection(facing, num)
                 }
             }
 
             return abs(ship.first) + abs(ship.second)
         }
 
-        fun goForwardPart2(
-            shipPosition: Pair<Int, Int>,
-            wayPointPosition: Pair<Int, Int>,
-            number: Int
-        ): Pair<Int, Int> {
-            return shipPosition.first + (wayPointPosition.first * number) to
-                shipPosition.second + (wayPointPosition.second * number)
-        }
+        fun solvePartTwo(input: List<Instruction>): Int {
+            // east to north
+            // Start coordinates of the way point
+            var wayPoint = 10 to 1
 
-        fun goForwardPart1(currentPosition: Pair<Int, Int>, distanceToTravel: Int, direction: Char): Pair<Int, Int> {
-            val (x, y) = currentPosition
-            return when (direction) {
-                'N' -> x to y + distanceToTravel
-                'E' -> x + distanceToTravel to y
-                'W' -> x - distanceToTravel to y
-                'S' -> x to y - distanceToTravel
-                else -> currentPosition
+            // Start coordinates of the ship
+            var ship = 0 to 0
+
+            input.forEach { instruction ->
+                val num = instruction.number
+                when (instruction.letter) {
+                    'N' -> wayPoint = mutateWayPoint(wayPoint, 0 to 1, num)
+                    'E' -> wayPoint = mutateWayPoint(wayPoint, 1 to 0, num)
+                    'W' -> wayPoint = mutateWayPoint(wayPoint, -1 to 0, num)
+                    'S' -> wayPoint = mutateWayPoint(wayPoint, 0 to -1, num)
+                    'F' -> ship = mutateWayPoint(ship, wayPoint, num)
+                    'L' -> wayPoint = mutateDirection(wayPoint, -1 * num)
+                    'R' -> wayPoint = mutateDirection(wayPoint, num)
+                }
             }
+
+            return abs(ship.first) + abs(ship.second)
         }
 
-        fun newDirectionPart2(wayPoint: Pair<Int, Int>, angle: Int): Pair<Int, Int> {
+        private fun mutateDirection(wayPoint: Pair<Int, Int>, angle: Int): Pair<Int, Int> {
             var mutations = angle / 90
             mutations %= 4
 
@@ -111,15 +95,12 @@ class Day12 {
             return output
         }
 
-        private fun newDirection(currentDirection: Char, angle: Int): Char {
-            val direction = "NESW"
-            val shiftPositions = angle / 90
-            val currentIndex = direction.indexOf(currentDirection)
-
-            var newIndex = (currentIndex + shiftPositions) % 4
-            while (newIndex < 0) newIndex += 4
-
-            return direction[newIndex]
+        private fun mutateWayPoint(
+            input: Pair<Int, Int>,
+            mutation: Pair<Int, Int>,
+            repeat: Int = 1
+        ): Pair<Int, Int> {
+            return input.first + (mutation.first * repeat) to input.second + (mutation.second * repeat)
         }
 
     }
