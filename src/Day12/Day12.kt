@@ -31,7 +31,7 @@ class Day12 {
 
         fun solvePartOne(input: List<Instruction>): Int {
             // East to North
-            var facing = 1 to 0
+            var wayPoint = 1 to 0
 
             // Start coordinates of the ship
             var ship = 0 to 0
@@ -43,9 +43,9 @@ class Day12 {
                     'E' -> ship = mutateWayPoint(ship, 1 to 0, num)
                     'W' -> ship = mutateWayPoint(ship, -1 to 0, num)
                     'S' -> ship = mutateWayPoint(ship, 0 to -1, num)
-                    'F' -> ship = mutateWayPoint(ship, facing, num)
-                    'L' -> facing = mutateDirection(facing, -1 * num)
-                    'R' -> facing = mutateDirection(facing, num)
+                    'F' -> ship = mutateWayPoint(ship, wayPoint, num)
+                    'L' -> wayPoint = mutateDirection(wayPoint, -1 * num)
+                    'R' -> wayPoint = mutateDirection(wayPoint, num)
                 }
             }
 
