@@ -84,22 +84,22 @@ data class GameOfLifeMap(val input: List<String>) {
         for (y in 0 until height) {
             var lineOutput = ""
             for (x in 0 until width) {
-                when (getCell(x, y)) {
+                lineOutput += when (getCell(x, y)) {
                     '#' -> {
-                        lineOutput += if (occupiedToFree.invoke(canSeeType(x, y, viewRange, '#'))) {
+                        if (occupiedToFree.invoke(canSeeType(x, y, viewRange, '#'))) {
                             'L'
                         } else {
                             '#'
                         }
                     }
                     'L' -> {
-                        lineOutput += if (freeToOccupied.invoke(canSeeType(x, y, viewRange, '#'))) {
+                        if (freeToOccupied.invoke(canSeeType(x, y, viewRange, '#'))) {
                             '#'
                         } else {
                             'L'
                         }
                     }
-                    else -> lineOutput += getCell(x, y)
+                    else -> getCell(x, y)
                 }
             }
             output.add(lineOutput)
