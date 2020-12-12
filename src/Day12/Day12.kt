@@ -77,8 +77,7 @@ class Day12 {
         }
 
         private fun mutateDirection(wayPoint: Pair<Int, Int>, angle: Int): Pair<Int, Int> {
-            var mutations = angle / 90
-            mutations %= 4
+            var mutations = (angle / 90) % 4
 
             while (mutations < 0) mutations += 4
 
