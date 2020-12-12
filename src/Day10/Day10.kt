@@ -23,7 +23,7 @@ fun main() {
     // 19208
     println("p2 test results 2 answer has ${Day10.solvePartTwo(testResults2)} options")
 
-    // 517996544 is too low
+    // 517996544 is too low, actual answer is 1727094849536
     println("p2 real results answer has ${Day10.solvePartTwo(realResults)} options")
 }
 
