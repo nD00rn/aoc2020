@@ -23,9 +23,7 @@ class Day11 {
     companion object {
 
         fun loadInput(path: String): GameOfLifeMap {
-            val input = Files.readAllLines(Paths.get(path), Charsets.UTF_8).stream()
-                .collect(Collectors.toList())
-                .toList()
+            val input = Files.readAllLines(Paths.get(path), Charsets.UTF_8)
 
             return GameOfLifeMap(input)
         }
