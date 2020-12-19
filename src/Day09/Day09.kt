@@ -1,3 +1,5 @@
+package Day09
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
@@ -20,7 +22,7 @@ fun main() {
     println("Part two real: ${Day09.solvePartTwo(248131121, realInput)}")
 }
 
-class Day09 {
+private class Day09 {
     companion object {
 
         fun loadInput(path: String): List<Long> {

@@ -1,3 +1,5 @@
+package Day07
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
@@ -23,7 +25,7 @@ fun main() {
     println("done...")
 }
 
-class Day07 {
+private class Day07 {
     companion object {
 
         fun readInput(path: String): List<Bag> {
@@ -53,7 +55,7 @@ class Day07 {
     }
 }
 
-data class Bag(val input: String) {
+private data class Bag(val input: String) {
     val color: String = input.split("bags", limit = 2)[0].trim()
     var amount: Long = 1
 

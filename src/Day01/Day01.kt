@@ -1,3 +1,5 @@
+package Day01
+
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -19,7 +21,7 @@ fun main() {
     println("real part 2 - " + Day01.solvePartTwo(realNumbers, requestedNumber))
 }
 
-class Day01 {
+private class Day01 {
     companion object {
         fun loadNumbers(path: String): IntArray {
             return Files.readAllLines(Paths.get(path), Charsets.UTF_8)

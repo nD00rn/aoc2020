@@ -1,6 +1,7 @@
+package Day11
+
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.util.stream.Collectors
 
 fun main() {
     val testInput = Day11.loadInput("./src/Day11/Day11.test")
@@ -19,7 +20,7 @@ fun main() {
     println("p2 real input contains ${Day11.solvePartTwo(realInput)} taken seats")
 }
 
-class Day11 {
+private class Day11 {
     companion object {
 
         fun loadInput(path: String): GameOfLifeMap {
@@ -69,7 +70,7 @@ class Day11 {
     }
 }
 
-data class GameOfLifeMap(val input: List<String>) {
+private data class GameOfLifeMap(val input: List<String>) {
     val width = input.first().length
     val height = input.size
 

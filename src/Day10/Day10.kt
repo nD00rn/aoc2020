@@ -1,3 +1,5 @@
+package Day10
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
@@ -26,7 +28,7 @@ fun main() {
     println("p2 real results answer has ${Day10.solvePartTwo(realResults)} options")
 }
 
-class Day10 {
+private class Day10 {
     companion object {
 
         fun loadInput(path: String): List<Int> {

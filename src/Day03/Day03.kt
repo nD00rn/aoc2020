@@ -1,3 +1,5 @@
+package Day03
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Stream
@@ -19,7 +21,7 @@ fun main() {
     println("Found ${Day03.solvePartTwo(realMap)} as the solution for part 2 on real map")
 }
 
-class Day03 {
+private class Day03 {
     companion object {
 
         fun loadMap(path: String): AocMap {
@@ -54,7 +56,7 @@ class Day03 {
     }
 }
 
-data class AocMap(val input: List<String>) {
+private data class AocMap(val input: List<String>) {
     val height = input.size
     private val width = input.first().length
 

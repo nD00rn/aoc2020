@@ -1,3 +1,5 @@
+package Day12
+
 import java.lang.Math.abs
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -20,7 +22,7 @@ fun main() {
     println("p2 - real distance is ${Day12.solvePartTwo(realData)}")
 }
 
-class Day12 {
+private class Day12 {
     companion object {
 
         fun loadInput(path: String): List<Instruction> {
@@ -105,7 +107,7 @@ class Day12 {
     }
 }
 
-data class Instruction(val input: String) {
+private data class Instruction(val input: String) {
     val letter: Char = input[0]
     val number: Int = input.substring(1).toInt()
 }

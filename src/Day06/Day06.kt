@@ -1,3 +1,5 @@
+package Day06
+
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -21,7 +23,7 @@ fun main() {
     println("The sum of unique real answers in part two is ${Day06.solvePartTwo(realValues)}")
 }
 
-class Day06 {
+private class Day06 {
     companion object {
 
         fun readInput(path: String): List<Group> {
@@ -58,7 +60,7 @@ class Day06 {
     }
 }
 
-data class Group(val answers: List<Answer>) {
+private data class Group(val answers: List<Answer>) {
     fun uniqueAnswers(): Int {
         return answers.stream()
             .reduce { a, b -> Answer(a.input + b.input) }
@@ -74,4 +76,4 @@ data class Group(val answers: List<Answer>) {
     }
 }
 
-data class Answer(val input: String)
+private data class Answer(val input: String)

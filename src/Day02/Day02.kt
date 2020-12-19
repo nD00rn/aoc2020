@@ -1,3 +1,5 @@
+package Day02
+
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -18,7 +20,7 @@ fun main() {
     println("Part two contains ${Day02.solvePartTwo(realPasswords)} valid real password")
 }
 
-class Day02 {
+private class Day02 {
     companion object {
         fun loadPasswords(path: String): List<PasswordAndRule> {
             return Files.readAllLines(Paths.get(path), Charsets.UTF_8)

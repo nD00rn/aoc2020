@@ -1,3 +1,5 @@
+package Day13
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
@@ -28,7 +30,7 @@ fun main() {
     println("p2: real data is ${Day13.solvePartTwo(realData)}")
 }
 
-class Day13 {
+private class Day13 {
     companion object {
 
         fun loadInput(path: String): Schedule {
@@ -63,10 +65,11 @@ class Day13 {
             val secondMaxIndex = schedule.busSchedules.indexOf(secondMax.toString())
             val thirdMaxIndex = schedule.busSchedules.indexOf(thirdMax.toString())
 
-            val(firstMeet, secondMeet) = Stream.iterate(1) { it + 1 }
-                .filter { (it + firstMaxIndex) % firstMax == 0
-                    && (it + secondMaxIndex) % secondMax == 0
-                    && (it + thirdMaxIndex) % thirdMax == 0
+            val (firstMeet, secondMeet) = Stream.iterate(1) { it + 1 }
+                .filter {
+                    (it + firstMaxIndex) % firstMax == 0
+                        && (it + secondMaxIndex) % secondMax == 0
+                        && (it + thirdMaxIndex) % thirdMax == 0
                 }
                 .limit(2)
                 .collect(Collectors.toList())
@@ -83,7 +86,7 @@ class Day13 {
     }
 }
 
-data class Schedule(val input: List<String>) {
+private data class Schedule(val input: List<String>) {
     val departureTime: Int = input.first().toInt()
     val busSchedules: List<String> = input[1].split(",")
 

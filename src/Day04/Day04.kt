@@ -1,3 +1,5 @@
+package Day04
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
@@ -19,7 +21,7 @@ fun main() {
     println("Part two: There are ${Day04.solvePartTwo(realPassports)} valid real passports in this list")
 }
 
-class Day04 {
+private class Day04 {
     companion object {
 
         fun readPassports(path: String): List<Passport> {
@@ -60,7 +62,7 @@ class Day04 {
     }
 }
 
-data class Passport(private val input: String) {
+private data class Passport(private val input: String) {
     private var ecl: String = ""
     private var pid: String = ""
     private var eyr: String = ""

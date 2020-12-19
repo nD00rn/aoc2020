@@ -1,3 +1,5 @@
+package Day05
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors.toList
@@ -16,7 +18,7 @@ fun main() {
     println("My seat id is ${Day05.solvePartTwo(realInput)} for part two")
 }
 
-class Day05 {
+private class Day05 {
     companion object {
 
         fun readInput(path: String): List<Int> {
@@ -66,4 +68,4 @@ class Day05 {
     }
 }
 
-data class BoardingPass(val row: Int, val column: Int)
+private data class BoardingPass(val row: Int, val column: Int)

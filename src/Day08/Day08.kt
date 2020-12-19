@@ -1,3 +1,5 @@
+package Day08
+
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
@@ -19,7 +21,7 @@ fun main() {
     println("The global value using real data for part two is ${Day08.solvePartTwo(realCode)}")
 }
 
-class Day08 {
+private class Day08 {
     companion object {
 
         fun loadInput(path: String): List<Operation> {
@@ -112,12 +114,12 @@ class Day08 {
     }
 }
 
-data class Program(
+private data class Program(
     var globalValue: Int = 0,
     var programCounter: Int = 0
 )
 
-data class Operation(val input: String) {
+private data class Operation(val input: String) {
     val execution: String
     val argument: Int
 
