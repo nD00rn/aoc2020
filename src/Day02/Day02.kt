@@ -57,7 +57,7 @@ private class Day02 {
     }
 }
 
-data class PasswordAndRule(private val input: String) {
+private data class PasswordAndRule(private val input: String) {
     val password: String
     val testChar: Int
     val minAmount: Int
