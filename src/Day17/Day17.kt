@@ -26,7 +26,7 @@ class Day17 {
             return Files.readAllLines(Paths.get(path), Charsets.UTF_8)
         }
 
-        fun solvePartOne(initialState: List<String>): Int {
+        fun solve(initialState: List<String>): Int {
             val cube = Cube(initialState)
 
             repeat(6) {
@@ -49,7 +49,7 @@ data class Cube(val initialState: List<String>) {
         initialState.forEachIndexed { lineIndex, line ->
             line.forEachIndexed { charIndex, char ->
                 if (char == State.Active.c) {
-                    activePoints.add(Point(charIndex, lineIndex, 0))
+                    activePoints.add(Point(charIndex, lineIndex, 0, 0))
                 }
             }
         }
@@ -97,12 +97,14 @@ data class Cube(val initialState: List<String>) {
     private fun getCoordinatesInRange(point: Point, range: Int = 1): List<Point> {
         val output = mutableListOf<Point>()
 
-        val (x, y, z) = point
+        val (x, y, z, w) = point
 
         for (xx in (x - range)..(x + range)) {
             for (yy in (y - range)..(y + range)) {
                 for (zz in (z - range)..(z + range)) {
-                    output.add(Point(xx, yy, zz))
+                    for (ww in (w - range)..(w + range)) {
+                        output.add(Point(xx, yy, zz, ww))
+                    }
                 }
             }
         }
@@ -122,7 +124,7 @@ data class Cube(val initialState: List<String>) {
     }
 }
 
-data class Point(val x: Int, val y: Int, val z: Int)
+data class Point(val x: Int, val y: Int, val z: Int, val w: Int)
 
 enum class State(val c: Char) {
     Active('#'),
