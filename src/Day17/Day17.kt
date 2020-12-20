@@ -9,14 +9,11 @@ fun main() {
 
     println("testData = $testData")
 
-    // 112
-    println("day 17 p1 - test data - ${Day17.solvePartOne(testData)}")
+    // 112 | 848
+    println("day 17 p1 - test data - ${Day17.solve(testData)}")
 
-    // 380
-    println("day 17 p1 - real data - ${Day17.solvePartOne(realData)}")
-
-    // 848
-//    println("day 17 p2 - test data - ${Day17.solvePartTwo(testData)}")
+    // 380 | 2332
+    println("day 17 p1 - real data - ${Day17.solve(realData)}")
 }
 
 class Day17 {
