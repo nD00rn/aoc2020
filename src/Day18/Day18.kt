@@ -2,6 +2,7 @@ package Day18
 
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.LinkedList
 
 fun main() {
     val testData = Day18.loadInput("./src/Day18/Day18.test")
@@ -13,7 +14,12 @@ fun main() {
     // 280014646144
     println("Day 18 part 1 - real data - ${Day18.solvePartOne(realData)}")
 
+    //
     println("Day 18 part 2 - test data - ${Day18.solvePartTwo(testData)}")
+
+    // 6156103595723549 too high, 1973139638849395 too high
+    // Actual is 9966990988262
+    println("Day 18 part 2 - real data - ${Day18.solvePartTwo(realData)}")
 }
 
 class Day18 {
@@ -25,74 +31,63 @@ class Day18 {
 
         fun solvePartOne(inputs: List<String>): Long {
             return inputs.stream()
-                .map(this::solveEquation)
-                .mapToLong { it.first }
+                .map { toLinkedList(it) }
+                .mapToLong { evaluate(it, false) }
                 .sum()
         }
 
-        fun solveEquation(input: String): Pair<Long, Int> {
-            var output: Long = 0
-            var number: Long? = null
-            var operation = "plus"
+        fun solvePartTwo(inputs: List<String>): Long {
+            return inputs.stream()
+                .map { toLinkedList(it) }
+                .mapToLong { evaluate(it, true) }
+                .sum()
+        }
 
-            var index = 0
-            while (true) {
-                if (index == input.length) {
-//                    println("End of input reached, output=$output, number=$number, operation=$operation")
-                    return when (operation) {
-                        "plus" -> output + (number ?: 0) to index
-                        "multiply" -> output * (number ?: 1) to index
-                        else -> (-1).toLong() to -1
-                    }
-                }
+        private fun toLinkedList(input: String): LinkedList<Char> {
+            var output = LinkedList<Char>()
+            input.forEach { output.add(it) }
+            return output
+        }
 
-                val c = input[index]
-//                println("processing      $index  $c")
-                when (c) {
-                    '(' -> {
-                        index++
-                        val (subOutput, subIndex) = solveEquation(input.substring(index))
-//                        println("Got subOutput=$subOutput, subIndex=$subIndex")
-                        when (operation) {
-                            "plus" -> output += subOutput
-                            "multiply" -> output *= subOutput
-                        }
-                        index += subIndex
-                    }
-                    ')' -> {
-//                        println("closing bracket reached, output=$output, number=$number, operation=$operation")
-                        return when (operation) {
-                            "plus" -> output + (number ?: 0) to index
-                            "multiply" -> output * (number ?: 1) to index
-                            else -> (-1).toLong() to -1
-                        }
-                    }
+        private fun evaluate(tokens: LinkedList<Char>, plusFirst: Boolean): Long {
+            var multiplier: Long = 1
+            var accumulator: Long = 0
+            var op = "ADD"
+
+            while (tokens.isNotEmpty()) {
+                val token = tokens.removeAt(0)
+                when (token) {
                     in '0'..'9' -> {
-                        number = (number ?: 0) * 10 + (c - '0')
-//                        println("Number is $number")
+                        val value = (token - '0') * multiplier
+                        accumulator = operation(op, accumulator, value)
                     }
-                    '+' -> {
-                        when (operation) {
-                            "plus" -> output += (number ?: 0)
-                            "multiply" -> output *= (number ?: 1)
-                        }
-                        operation = "plus"
-                        number = null
-                        index++
-                    }
+                    '+' -> op = "ADD"
                     '*' -> {
-                        when (operation) {
-                            "plus" -> output += (number ?: 0)
-                            "multiply" -> output *= (number ?: 1)
+                        if (plusFirst) {
+                            multiplier = accumulator
+                            accumulator = 0
+                        } else {
+                            op = "MUL"
                         }
-                        operation = "multiply"
-                        number = null
-                        index++
                     }
+                    '(' -> {
+                        val value = evaluate(tokens, plusFirst) * multiplier
+                        accumulator = operation(op, accumulator, value)
+                    }
+                    ' ' -> continue
+                    else -> break
                 }
-                index++
             }
 
+            return accumulator
+        }
+
+        private fun operation(operation: String, a: Long, b: Long): Long {
+            return when (operation) {
+                "ADD" -> a + b
+                "MUL" -> a * b
+                else -> -1
+            }
         }
 
     }
